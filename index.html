@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Friday - AI Assistant by Sandesh</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+       background: linear-gradient(to right, #04020f, #a297d1);
+      color: white;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+    .container {
+      text-align: center;
+      max-width: 600px;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+    .chat-box {
+      margin-top: 20px;
+    }
+    #userInput {
+      width: 70%;
+      padding: 10px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+    }
+    button {
+      padding: 10px 15px;
+      font-size: 1rem;
+      margin-left: 10px;
+      background: #03320a;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #response {
+      margin-top: 20px;
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>👋 Hello, I'm <span class="name">Friday</span></h1>
+    <p class="intro">I am your personal AI assistant built by <strong>Sandesh</strong>. Ask me anything and I'll give you the answer — including voice replies! 🎤🤖</p>
+    <div class="chat-box">
+      <input type="text" id="userInput" placeholder="Ask me anything...">
+      <button onclick="getResponse()">Ask</button>
+    </div>
+    <div id="response"></div>
+  </div>
+
+  <script>
+    const synth = window.speechSynthesis;
+
+    async function getResponse() {
+      const userInput = document.getElementById('userInput').value;
+      const responseDiv = document.getElementById('response');
+      if (!userInput) return;
+
+      // Simple simulated response (replace with API call if needed)
+      const reply = await generateResponse(userInput);
+
+      responseDiv.innerHTML = `<strong>Friday:</strong> ${reply}`;
+
+      const utterThis = new SpeechSynthesisUtterance(reply);
+      synth.speak(utterThis);
+    }
+
+    async function generateResponse(input) {
+      const lower = input.toLowerCase();
+      if (lower.includes('your name')) return "My name is Friday, your AI assistant created by Sandesh.";
+      if (lower.includes('who made you')) return "I was proudly created by Sir Sandesh.";
+      if (lower.includes('hello') || lower.includes('hi')) return "Hello! How can I assist you today?";
+      if (lower.includes('time')) return `The current time is ${new Date().toLocaleTimeString()}`;
+      if (lower.includes('date')) return `Today's date is ${new Date().toLocaleDateString()}`;
+      return "I'm Friday. Let me help you with anything you need!";
+    }
+  </script>
+</body>
+</html>
